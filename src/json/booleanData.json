@@ -1,0 +1,4 @@
+{
+  "properties": ["length"],
+  "methods": ["toString", "valueOf"]
+}
