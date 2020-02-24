@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Jumbotron fluid>
         <Container>
-          <h1>JS EGGHeads</h1>
+          <h1>JS EggHeads</h1>
         </Container>
       </Jumbotron>
       <Container>

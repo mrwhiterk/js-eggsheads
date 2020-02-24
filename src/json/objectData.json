@@ -1,0 +1,4 @@
+{
+  "properties": ["length", "__proto__"],
+  "methods": ["toString", "valueOf"]
+}
