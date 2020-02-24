@@ -12,11 +12,10 @@ import MethodOverload from "./components/MethodOverload/MethodOverload";
 function App() {
   return (
     <div className="App">
-      <Jumbotron fluid>
-        <Container>
-          <h1>JS EggHeads</h1>
-        </Container>
-      </Jumbotron>
+      <Container>
+        <h1>JS EggHeads</h1>
+      </Container>
+
       <Container>
         <Row>
           <Col sm={3}>

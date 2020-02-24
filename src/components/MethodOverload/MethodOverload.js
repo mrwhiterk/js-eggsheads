@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import stringData from "../../json/stringData.json";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -23,6 +23,7 @@ export default function MethodOverload() {
   const [guess, setGuess] = useState("");
   const [propertyArray, setPropertyArray] = useState(propertyObjects);
   const [methodArray, setMethodArray] = useState(methodObjects);
+  const [totalRight, setTotal] = useState(0);
 
   let blankMethods = methodArray.map(method => {
     if (!method.solved) {
@@ -50,6 +51,7 @@ export default function MethodOverload() {
       setPropertyArray(data);
 
       setGuess("");
+      setTotal(totalRight + 1);
     }
 
     let methodMatchIndex = stringData.methods.findIndex(
@@ -63,8 +65,47 @@ export default function MethodOverload() {
       setMethodArray(data);
 
       setGuess("");
+      setTotal(totalRight + 1);
     }
   }
+
+  const revealAnswers = () => {
+    setPropertyArray(
+      propertyArray.map(x => {
+        return {
+          ...x,
+          solved: true
+        };
+      })
+    );
+    setMethodArray(
+      methodArray.map(x => {
+        return {
+          ...x,
+          solved: true
+        };
+      })
+    );
+  };
+  const reset = () => {
+    setTotal(0);
+    setPropertyArray(
+      propertyArray.map(x => {
+        return {
+          ...x,
+          solved: false
+        };
+      })
+    );
+    setMethodArray(
+      methodArray.map(x => {
+        return {
+          ...x,
+          solved: false
+        };
+      })
+    );
+  };
 
   function handleChange(e) {
     setGuess(e.target.value.trim());
@@ -72,6 +113,9 @@ export default function MethodOverload() {
 
   let methods = blankMethods.map((x, i) => <div key={i}>{x}</div>);
   let properties = blankProperties.map((x, i) => <div key={i}>{x}</div>);
+
+  let totalData = methods.concat(properties);
+  let totalDataCount = totalData.length;
 
   return (
     <div>
@@ -83,7 +127,7 @@ export default function MethodOverload() {
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <Button variant="outline-secondary" onClick={handleClick}>
-            Button
+            Guess
           </Button>
         </InputGroup.Prepend>
         <FormControl
@@ -99,6 +143,16 @@ export default function MethodOverload() {
         />
       </InputGroup>
       <h3>Strings</h3>
+      <p>
+        {totalRight}/{totalDataCount} {(totalRight / totalDataCount).toFixed(2)}
+        %
+      </p>
+      <Button variant="danger" onClick={revealAnswers}>
+        Give Up
+      </Button>
+      <Button variant="primary" onClick={reset}>
+        Reset
+      </Button>
 
       <h4>properties</h4>
       <Row>
